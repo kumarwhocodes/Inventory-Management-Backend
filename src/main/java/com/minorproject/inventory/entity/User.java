@@ -19,10 +19,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uid;
-    @Column(nullable = false)
+    private String yourName;
     private String companyName;
-    @Column(nullable = false, unique = true)
-    private Long phoneNumber;
+    private String phoneNumber;
     @Column(nullable = false, unique = true)
     private String email;
     private String gstNumber;
@@ -33,6 +32,7 @@ public class User {
     public UserDTO toUserDTO() {
         return UserDTO.builder()
                 .uid(uid != null ? uid.toString() : null)
+                .yourName(yourName)
                 .companyName(companyName)
                 .phoneNumber(phoneNumber)
                 .email(email)

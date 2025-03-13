@@ -24,7 +24,7 @@ public class BankDetails {
     private String ifscCode;
     private String holderName;
     private String bankName;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     

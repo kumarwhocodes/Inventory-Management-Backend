@@ -13,8 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDTO {
     private String uid;
+    private String yourName;
     private String companyName;
-    private Long phoneNumber;
+    private String phoneNumber;
     private String email;
     private String gstNumber;
     private String licenseNumber;
@@ -24,6 +25,7 @@ public class UserDTO {
     public User toUser() {
         return User.builder()
                 .uid(uid != null ? UUID.fromString(uid) : null)
+                .yourName(yourName)
                 .companyName(companyName)
                 .phoneNumber(phoneNumber)
                 .email(email)

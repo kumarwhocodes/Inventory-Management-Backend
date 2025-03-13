@@ -1,8 +1,9 @@
 package com.minorproject.inventory.service;
 
-import com.minorproject.inventory.dto.CustomerDTO;
-import com.minorproject.inventory.entity.Customer;
+import com.minorproject.inventory.dto.PartyDTO;
+import com.minorproject.inventory.entity.Party;
 import com.minorproject.inventory.repository.CustomerRepository;
+import jakarta.servlet.http.Part;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +13,17 @@ public class CustomerService {
     
     private final CustomerRepository customerRepo;
     
-    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
-        Customer customer = Customer.builder()
-                .name(customerDTO.getName())
-                .phoneNumber(customerDTO.getPhoneNumber())
-                .billingAddress(customerDTO.getBillingAddress())
-                .postalCode(customerDTO.getPostalCode())
-                .deliveryAddress(customerDTO.getDeliveryAddress())
-                .gstNumber(customerDTO.getGstNumber())
-                .dob(customerDTO.getDob())
-                .whatsappAlerts(customerDTO.getWhatsappAlerts())
-                .isCustomer(customerDTO.getIsCustomer())
+    public PartyDTO createCustomer(PartyDTO partyDTO) {
+        Party customer = Party.builder()
+                .name(partyDTO.getName())
+                .phoneNumber(partyDTO.getPhoneNumber())
+                .billingAddress(partyDTO.getBillingAddress())
+                .postalCode(partyDTO.getPostalCode())
+                .deliveryAddress(partyDTO.getDeliveryAddress())
+                .gstNumber(partyDTO.getGstNumber())
+                .dob(partyDTO.getDob())
+                .whatsappAlerts(partyDTO.getWhatsappAlerts())
+                .isCustomer(partyDTO.getIsCustomer())
                 .build();
         
         customerRepo.save(customer);

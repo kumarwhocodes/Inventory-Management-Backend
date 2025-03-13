@@ -1,25 +1,19 @@
-package com.minorproject.inventory.entity;
+package com.minorproject.inventory.dto;
 
-import com.minorproject.inventory.dto.CustomerDTO;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.minorproject.inventory.entity.Party;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "customer_db")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class PartyDTO {
+    private String id;
     private String name;
     private String phoneNumber;
     private String billingAddress;
@@ -30,13 +24,9 @@ public class Customer {
     private Boolean whatsappAlerts;
     private Boolean isCustomer;
     
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-    
-    public CustomerDTO toCustomerDTO() {
-        return CustomerDTO.builder()
-                .id(id != null ? id.toString() : null)
+    public Party toCustomer() {
+        return Party.builder()
+                .id(id != null ? UUID.fromString(id) : null)
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .billingAddress(billingAddress)

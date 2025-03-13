@@ -38,3 +38,4 @@ out/
 .vscode/
 
 src/main/resources/application.properties
+src/main/resources/stockflow-95fa0-firebase-adminsdk-fbsvc-c4620c6626.json
