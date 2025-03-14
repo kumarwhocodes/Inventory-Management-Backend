@@ -1,52 +1,53 @@
 package com.minorproject.inventory.controller;
 
-import com.minorproject.inventory.dto.CustomResponse;
 import com.minorproject.inventory.dto.SellingUnitDTO;
-import com.minorproject.inventory.entity.SellingUnit;
-import com.minorproject.inventory.repository.SellingUnitRepository;
+import com.minorproject.inventory.dto.CustomResponse;
+import com.minorproject.inventory.service.SellingUnitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/selling-units")
+@RequestMapping("/unit")
 @RequiredArgsConstructor
 public class SellingUnitController {
     
-    private final SellingUnitRepository sellingUnitRepository;
-    
-    @PostMapping
-    public CustomResponse<SellingUnitDTO> addSellingUnit(@RequestBody SellingUnitDTO dto) {
-        SellingUnit sellingUnit = sellingUnitRepository.save(dto.toSellingUnit());
-        return new CustomResponse<>(
-                HttpStatus.OK,
-                "Selling Unit added successfully",
-                new SellingUnitDTO(dto.getId(), dto.getUnitName())
-        );
-    }
+    private final SellingUnitService service;
     
     @GetMapping
-    public CustomResponse<List<SellingUnitDTO>> getAllSellingUnits() {
-        List<SellingUnitDTO> units = sellingUnitRepository.findAll().stream()
-                .map(unit -> new SellingUnitDTO(unit.getId().toString(), unit.getUnitName()))
-                .collect(Collectors.toList());
+    public CustomResponse<List<SellingUnitDTO>> fetchAllSellingUnitsHandler(
+            @RequestHeader("Authorization") String token
+    ) {
         return new CustomResponse<>(
                 HttpStatus.OK,
-                "Selling Unit fetched successfully",
-                units
+                "Selling units fetched successfully",
+                service.fetchAllSellingUnits(token)
         );
     }
     
-    @DeleteMapping("/{id}")
-    public CustomResponse<Void> deleteSellingUnit(@PathVariable String id) {
-        sellingUnitRepository.deleteById(UUID.fromString(id));
+    @PostMapping
+    public CustomResponse<List<SellingUnitDTO>> createSellingUnitsHandler(
+            @RequestHeader("Authorization") String token,
+            @RequestBody List<SellingUnitDTO> sellingUnitDTOs
+    ) {
+        return new CustomResponse<>(
+                HttpStatus.CREATED,
+                "Selling units created successfully",
+                service.createSellingUnits(token, sellingUnitDTOs)
+        );
+    }
+    
+    @DeleteMapping("/{unitId}")
+    public CustomResponse<Void> deleteSellingUnitHandler(
+            @RequestHeader("Authorization") String token,
+            @PathVariable String unitId
+    ) {
+        service.deleteSellingUnit(token, unitId);
         return new CustomResponse<>(
                 HttpStatus.OK,
-                "Selling Unit deleted successfully!",
+                "Selling unit deleted successfully",
                 null
         );
     }

@@ -3,10 +3,8 @@ package com.minorproject.inventory.dto;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomResponse<T> {
