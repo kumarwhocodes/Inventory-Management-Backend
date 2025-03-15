@@ -4,6 +4,7 @@ import com.minorproject.inventory.dto.CustomResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -57,6 +58,30 @@ public class GlobalExceptionHandler {
                 ),
                 HttpStatus.BAD_REQUEST
         );
+    }
+    
+    //Missing Header Exception
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public ResponseEntity<CustomResponse<String>> handleMissingRequestHeaderException(MissingRequestHeaderException ex) {
+        if (ex.getHeaderName().equals("Authorization")) {
+            // Return the same response as your TokenNotFound exception
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(new CustomResponse<>(
+                            HttpStatus.UNAUTHORIZED,
+                            "Token not found or invalid",
+                            "ERROR"
+                    ));
+        }
+        
+        // Handle other missing headers
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new CustomResponse<>(
+                        HttpStatus.BAD_REQUEST,
+                        ex.getMessage(),
+                        "ERROR"
+                ));
     }
     
     // IllegalStateException handler

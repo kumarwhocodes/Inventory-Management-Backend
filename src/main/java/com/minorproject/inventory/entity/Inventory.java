@@ -22,16 +22,16 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private String image;
+    private String photo;
     private BigDecimal sellPrice;
     @ManyToOne
     @JoinColumn(name = "sell_price_unit_id", nullable = false)
     private SellingUnit sellPriceUnit; // Dynamic from backend
     private BigDecimal mrp;
     private BigDecimal purchasePrice;
-    private Double taxPercentage;
+    private Double tax;
     private String itemCode;
-    private String barCodeNumber;
+    private String barcode;
     private String itemDescription;
     private Integer lowStockAlertQuantity;
     private LocalDate expiryDate;
@@ -47,14 +47,14 @@ public class Inventory {
         return InventoryDTO.builder()
                 .id(id != null ? id.toString() : null)
                 .name(name)
-                .image(image)
+                .photo(photo)
                 .sellPrice(sellPrice)
                 .sellPriceUnit(sellPriceUnit != null ? sellPriceUnit.getUnitName() : null)
                 .mrp(mrp)
                 .purchasePrice(purchasePrice)
-                .taxPercentage(taxPercentage)
+                .tax(tax)
                 .itemCode(itemCode)
-                .barCodeNumber(barCodeNumber)
+                .barcode(barcode)
                 .itemDescription(itemDescription)
                 .lowStockAlertQuantity(lowStockAlertQuantity)
                 .expiryDate(expiryDate)

@@ -13,7 +13,7 @@ import java.util.UUID;
 public class PartyDTO {
     private String id;
     private String name;
-    private String phoneNumber;
+    private String phone;
     private String billingAddress;
     private Integer postalCode;
     private String deliveryAddress;
@@ -22,11 +22,11 @@ public class PartyDTO {
     private Boolean whatsappAlerts;
     private Boolean isCustomer;
     
-    public Party toCustomer() {
+    public Party toParty() {
         return Party.builder()
                 .id(id != null ? UUID.fromString(id) : null)
                 .name(name)
-                .phoneNumber(phoneNumber)
+                .phone(phone)
                 .billingAddress(billingAddress)
                 .postalCode(postalCode)
                 .deliveryAddress(deliveryAddress)

@@ -14,14 +14,14 @@ import java.util.UUID;
 public class InventoryDTO {
     private String id;
     private String name;
-    private String image;
+    private String photo;
     private BigDecimal sellPrice;
     private String sellPriceUnit; // Dynamic from backend
     private BigDecimal mrp;
     private BigDecimal purchasePrice;
-    private Double taxPercentage;
+    private Double tax;
     private String itemCode;
-    private String barCodeNumber;
+    private String barcode;
     private String itemDescription;
     private Integer lowStockAlertQuantity;
     private LocalDate expiryDate;
@@ -31,13 +31,13 @@ public class InventoryDTO {
         return Inventory.builder()
                 .id(id != null ? UUID.fromString(id) : null)
                 .name(name)
-                .image(image)
+                .photo(photo)
                 .sellPrice(sellPrice)
                 .mrp(mrp)
                 .purchasePrice(purchasePrice)
-                .taxPercentage(taxPercentage)
+                .tax(tax)
                 .itemCode(itemCode)
-                .barCodeNumber(barCodeNumber)
+                .barcode(barcode)
                 .itemDescription(itemDescription)
                 .lowStockAlertQuantity(lowStockAlertQuantity)
                 .expiryDate(expiryDate)

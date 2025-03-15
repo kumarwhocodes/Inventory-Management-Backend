@@ -21,7 +21,7 @@ public class Party {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private String phoneNumber;
+    private String phone;
     private String billingAddress;
     private Integer postalCode;
     private String deliveryAddress;
@@ -34,11 +34,11 @@ public class Party {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
-    public PartyDTO toCustomerDTO() {
+    public PartyDTO toPartyDTO() {
         return PartyDTO.builder()
                 .id(id != null ? id.toString() : null)
                 .name(name)
-                .phoneNumber(phoneNumber)
+                .phone(phone)
                 .billingAddress(billingAddress)
                 .postalCode(postalCode)
                 .deliveryAddress(deliveryAddress)

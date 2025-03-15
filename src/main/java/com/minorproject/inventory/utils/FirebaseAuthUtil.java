@@ -25,7 +25,7 @@ public class FirebaseAuthUtil {
      * @param token The Authorization header value
      * @return The decoded Firebase token
      * @throws TokenNotFound if the token is null, blank, or doesn't start with "Bearer"
-     * @throws InvalidToken if the token is invalid or cannot be verified
+     * @throws InvalidToken  if the token is invalid or cannot be verified
      */
     public FirebaseToken validateAndDecodeToken(String token) {
         if (token == null || token.isBlank() || !token.startsWith("Bearer")) {
@@ -42,7 +42,7 @@ public class FirebaseAuthUtil {
      *
      * @param token The Authorization header value
      * @return The User entity
-     * @throws TokenNotFound if the token is invalid
+     * @throws TokenNotFound             if the token is invalid
      * @throws ResourceNotFoundException if no user exists with the email from the token
      */
     public User getUserFromToken(String token) {
