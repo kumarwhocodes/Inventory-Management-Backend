@@ -18,12 +18,13 @@ public class CategoryController {
     
     @GetMapping
     public CustomResponse<List<CategoryDTO>> fetchAllCategoriesHandler(
-            @RequestHeader("Authorization") String token
+            @RequestHeader("Authorization") String token,
+            @RequestParam(required = false) String type
     ) {
         return new CustomResponse<>(
                 HttpStatus.OK,
                 "Categories fetched successfully",
-                service.fetchAllCategories(token)
+                service.fetchAllCategories(token, type)
         );
     }
     
@@ -36,6 +37,19 @@ public class CategoryController {
                 HttpStatus.CREATED,
                 "Categories created successfully",
                 service.createCategories(token, categoryDTOs)
+        );
+    }
+    
+    @PutMapping("/{categoryId}")
+    public CustomResponse<CategoryDTO> updateCategoryHandler(
+            @RequestHeader("Authorization") String token,
+            @RequestBody CategoryDTO categoryDTO,
+            @PathVariable String categoryId
+    ) {
+        return new CustomResponse<>(
+                HttpStatus.OK,
+                "Category updated successfully",
+                service.updateCategory(token, categoryDTO, categoryId)
         );
     }
     

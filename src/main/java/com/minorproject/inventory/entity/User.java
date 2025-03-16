@@ -19,27 +19,33 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uid;
-    private String yourName;
-    private String companyName;
-    private String phoneNumber;
+    private String photo;
+    private String industry;
+    private String contactName;
+    private String businessName;
+    private String contactNumber;
     @Column(nullable = false, unique = true)
     private String email;
     private String gstNumber;
     private String licenseNumber;
+    private String address;
     private Integer postalCode;
-    private String upiId;
+    private String signature;
     
     public UserDTO toUserDTO() {
         return UserDTO.builder()
                 .uid(uid != null ? uid.toString() : null)
-                .yourName(yourName)
-                .companyName(companyName)
-                .phoneNumber(phoneNumber)
+                .photo(photo)
+                .industry(industry)
+                .contactName(contactName)
+                .businessName(businessName)
+                .contactNumber(contactNumber)
                 .email(email)
                 .gstNumber(gstNumber)
                 .licenseNumber(licenseNumber)
+                .address(address)
                 .postalCode(postalCode)
-                .upiId(upiId)
+                .signature(signature)
                 .build();
     }
 }

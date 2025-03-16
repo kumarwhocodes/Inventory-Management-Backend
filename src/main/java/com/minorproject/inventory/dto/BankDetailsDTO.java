@@ -1,7 +1,10 @@
 package com.minorproject.inventory.dto;
 
 import com.minorproject.inventory.entity.BankDetails;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
@@ -15,6 +18,7 @@ public class BankDetailsDTO {
     private String ifscCode;
     private String holderName;
     private String bankName;
+    private String upiId;
     
     public BankDetails toBankDetails() {
         return BankDetails.builder()
@@ -23,6 +27,7 @@ public class BankDetailsDTO {
                 .ifscCode(ifscCode)
                 .holderName(holderName)
                 .bankName(bankName)
+                .upiId(upiId)
                 .build();
     }
 }

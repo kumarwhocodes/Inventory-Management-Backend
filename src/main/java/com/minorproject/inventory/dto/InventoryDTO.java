@@ -15,16 +15,17 @@ public class InventoryDTO {
     private String id;
     private String name;
     private String photo;
-    private BigDecimal sellPrice;
+    private Float sellPrice;
     private String sellPriceUnit; // Dynamic from backend
-    private BigDecimal mrp;
-    private BigDecimal purchasePrice;
+    private Float mrp;
+    private Float purchasePrice;
     private Double tax;
     private String itemCode;
     private String barcode;
     private String itemDescription;
     private Integer lowStockAlertQuantity;
     private LocalDate expiryDate;
+    private String storageLocation;
     private String category; // Dynamic from backend
     
     public Inventory toInventory() {

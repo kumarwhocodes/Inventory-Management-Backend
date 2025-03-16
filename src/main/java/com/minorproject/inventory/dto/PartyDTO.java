@@ -14,12 +14,12 @@ public class PartyDTO {
     private String id;
     private String name;
     private String phone;
+    private String category;
     private String billingAddress;
-    private Integer postalCode;
     private String deliveryAddress;
+    private Integer postalCode;
     private String gstNumber;
     private LocalDate dob;
-    private Boolean whatsappAlerts;
     private Boolean isCustomer;
     
     public Party toParty() {
@@ -32,7 +32,6 @@ public class PartyDTO {
                 .deliveryAddress(deliveryAddress)
                 .gstNumber(gstNumber)
                 .dob(dob)
-                .whatsappAlerts(whatsappAlerts)
                 .isCustomer(isCustomer)
                 .build();
     }

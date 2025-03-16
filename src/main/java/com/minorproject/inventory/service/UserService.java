@@ -52,13 +52,15 @@ public class UserService {
     public UserDTO updateUser(String token, UserDTO userDTO) {
         User existingUser = firebaseAuthUtil.getUserFromToken(token);
        
-        existingUser.setYourName(userDTO.getYourName());
-        existingUser.setCompanyName(userDTO.getCompanyName());
-        existingUser.setPhoneNumber(userDTO.getPhoneNumber());
+        existingUser.setContactName(userDTO.getContactName());
+        existingUser.setBusinessName(userDTO.getBusinessName());
+        existingUser.setContactNumber(userDTO.getContactNumber());
         existingUser.setGstNumber(userDTO.getGstNumber());
         existingUser.setLicenseNumber(userDTO.getLicenseNumber());
         existingUser.setPostalCode(userDTO.getPostalCode());
-        existingUser.setUpiId(userDTO.getUpiId());       // Don't update email as it's tied to authentication
+        existingUser.setAddress(userDTO.getAddress());
+        existingUser.setIndustry(userDTO.getIndustry());
+        // Don't update email as it's tied to authentication
         
         User updatedUser = repo.save(existingUser);
         return updatedUser.toUserDTO();
@@ -81,9 +83,9 @@ public class UserService {
     private UserDTO createUser(UserRecord firebaseUser) {
         User user = User
                 .builder()
-                .yourName(firebaseUser.getDisplayName())
-                .companyName(firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "Default Company")
-                .phoneNumber(firebaseUser.getPhoneNumber())
+                .contactName(firebaseUser.getDisplayName())
+                .businessName(firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "Default Company")
+                .contactNumber(firebaseUser.getPhoneNumber())
                 .email(firebaseUser.getEmail())
                 .build();
         

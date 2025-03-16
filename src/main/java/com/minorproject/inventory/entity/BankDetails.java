@@ -24,6 +24,7 @@ public class BankDetails {
     private String ifscCode;
     private String holderName;
     private String bankName;
+    private String upiId;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -35,6 +36,7 @@ public class BankDetails {
                 .ifscCode(ifscCode)
                 .holderName(holderName)
                 .bankName(bankName)
+                .upiId(upiId)
                 .build();
     }
     

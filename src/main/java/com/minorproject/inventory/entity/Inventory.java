@@ -23,17 +23,18 @@ public class Inventory {
     private UUID id;
     private String name;
     private String photo;
-    private BigDecimal sellPrice;
+    private Float sellPrice;
     @ManyToOne
     @JoinColumn(name = "sell_price_unit_id", nullable = false)
     private SellingUnit sellPriceUnit; // Dynamic from backend
-    private BigDecimal mrp;
-    private BigDecimal purchasePrice;
+    private Float mrp;
+    private Float purchasePrice;
     private Double tax;
     private String itemCode;
     private String barcode;
     private String itemDescription;
     private Integer lowStockAlertQuantity;
+    private String storageLocation;
     private LocalDate expiryDate;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

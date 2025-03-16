@@ -38,14 +38,12 @@ public class InventoryService {
     public InventoryDTO createInventory(String token, InventoryDTO inventoryDTO) {
         User user = firebaseAuthUtil.getUserFromToken(token);
         
-        // Get references to Category and SellingUnit
         Category category = categoryRepo.findByCategoryNameAndUser(inventoryDTO.getCategory(), user)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found: " + inventoryDTO.getCategory()));
         
         SellingUnit sellingUnit = sellingUnitRepo.findByUnitNameAndUser(inventoryDTO.getSellPriceUnit(), user)
                 .orElseThrow(() -> new ResourceNotFoundException("Selling unit not found: " + inventoryDTO.getSellPriceUnit()));
         
-        // Create inventory entity
         Inventory inventory = inventoryDTO.toInventory();
         inventory.setUser(user);
         inventory.setCategory(category);
@@ -100,6 +98,7 @@ public class InventoryService {
         existingInventory.setItemDescription(inventoryDTO.getItemDescription());
         existingInventory.setLowStockAlertQuantity(inventoryDTO.getLowStockAlertQuantity());
         existingInventory.setExpiryDate(inventoryDTO.getExpiryDate());
+        existingInventory.setStorageLocation(inventoryDTO.getStorageLocation());
         existingInventory.setCategory(category);
         
         Inventory updatedInventory = inventoryRepo.save(existingInventory);

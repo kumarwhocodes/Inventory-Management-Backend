@@ -22,12 +22,14 @@ public class Party {
     private UUID id;
     private String name;
     private String phone;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     private String billingAddress;
-    private Integer postalCode;
     private String deliveryAddress;
+    private Integer postalCode;
     private String gstNumber;
     private LocalDate dob;
-    private Boolean whatsappAlerts;
     private Boolean isCustomer;
     
     @ManyToOne
@@ -39,12 +41,12 @@ public class Party {
                 .id(id != null ? id.toString() : null)
                 .name(name)
                 .phone(phone)
+                .category(category != null ? category.getCategoryName() : null)
                 .billingAddress(billingAddress)
                 .postalCode(postalCode)
                 .deliveryAddress(deliveryAddress)
                 .gstNumber(gstNumber)
                 .dob(dob)
-                .whatsappAlerts(whatsappAlerts)
                 .isCustomer(isCustomer)
                 .build();
     }

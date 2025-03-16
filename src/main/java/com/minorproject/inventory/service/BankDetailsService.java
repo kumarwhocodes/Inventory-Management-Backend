@@ -39,12 +39,14 @@ public class BankDetailsService {
             bankDetails.setIfscCode(bankDetailsDTO.getIfscCode());
             bankDetails.setHolderName(bankDetailsDTO.getHolderName());
             bankDetails.setBankName(bankDetailsDTO.getBankName());
+            bankDetails.setUpiId(bankDetailsDTO.getUpiId());
         } else {                                            // Create new bank details
             bankDetails = BankDetails.builder()
                     .accountNumber(bankDetailsDTO.getAccountNumber())
                     .ifscCode(bankDetailsDTO.getIfscCode())
                     .holderName(bankDetailsDTO.getHolderName())
                     .bankName(bankDetailsDTO.getBankName())
+                    .upiId(bankDetailsDTO.getUpiId())
                     .user(user)
                     .build();
         }
