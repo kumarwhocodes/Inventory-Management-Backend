@@ -1,7 +1,10 @@
 package com.minorproject.inventory.dto;
 
 import com.minorproject.inventory.entity.Inventory;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,6 +28,7 @@ public class InventoryDTO {
     private String itemDescription;
     private Integer lowStockAlertQuantity;
     private LocalDate expiryDate;
+    private BigDecimal quantity;
     private String storageLocation;
     private String category; // Dynamic from backend
     
@@ -42,6 +46,9 @@ public class InventoryDTO {
                 .itemDescription(itemDescription)
                 .lowStockAlertQuantity(lowStockAlertQuantity)
                 .expiryDate(expiryDate)
+                .quantity(quantity)
+                .storageLocation(storageLocation)
+                .quantity(quantity)
                 .build();
     }
 }

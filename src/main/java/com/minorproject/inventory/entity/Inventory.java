@@ -36,6 +36,9 @@ public class Inventory {
     private Integer lowStockAlertQuantity;
     private String storageLocation;
     private LocalDate expiryDate;
+    @Column(nullable = false)
+    private BigDecimal quantity;
+    
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category; // Dynamic from backend
@@ -59,6 +62,7 @@ public class Inventory {
                 .itemDescription(itemDescription)
                 .lowStockAlertQuantity(lowStockAlertQuantity)
                 .expiryDate(expiryDate)
+                .quantity(quantity)
                 .category(category != null ? category.getCategoryName() : null)
                 .build();
     }

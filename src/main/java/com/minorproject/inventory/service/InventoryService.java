@@ -98,6 +98,7 @@ public class InventoryService {
         existingInventory.setItemDescription(inventoryDTO.getItemDescription());
         existingInventory.setLowStockAlertQuantity(inventoryDTO.getLowStockAlertQuantity());
         existingInventory.setExpiryDate(inventoryDTO.getExpiryDate());
+        existingInventory.setQuantity(inventoryDTO.getQuantity());
         existingInventory.setStorageLocation(inventoryDTO.getStorageLocation());
         existingInventory.setCategory(category);
         
