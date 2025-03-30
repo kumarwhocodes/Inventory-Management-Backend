@@ -53,18 +53,15 @@ public class ReportService {
     
     // Money Report Methods
     public List<MoneyReportDTO> fetchMoneyReports(String token, LocalDate startDate, LocalDate endDate) {
-        //TODO party id coming null
         User user = firebaseAuthUtil.getUserFromToken(token);
-        
         List<MoneyReport> reports = moneyReportRepository.findByUserAndDateBetween(user, startDate, endDate);
         return reports.stream()
-                .map(this::toMoneyReportDTO)
+                .map(MoneyReport::toMoneyReportDTO)
                 .collect(Collectors.toList());
     }
     
     // Stock Summary Methods
     public List<StockSummaryDTO> fetchStockSummaries(String token) {
-        //TODO purchase isn't increasing upon bill creation
         User user = firebaseAuthUtil.getUserFromToken(token);
         
         List<StockSummary> summaries = stockSummaryRepository.findByUser(user);
@@ -74,7 +71,6 @@ public class ReportService {
     }
     
     public StockSummaryDTO fetchStockSummaryByInventory(String token, String inventoryId) {
-        //TODO purchase isn't increasing upon bill creation
         User user = firebaseAuthUtil.getUserFromToken(token);
         
         // First find the inventory
@@ -90,12 +86,11 @@ public class ReportService {
     
     // Transaction Report Methods
     public List<TransactionReportDTO> fetchTransactionReports(String token, LocalDate startDate, LocalDate endDate) {
-        //TODO party id coming null
         User user = firebaseAuthUtil.getUserFromToken(token);
         
         List<TransactionReport> reports = transactionReportRepository.findByUserAndDateBetween(user, startDate, endDate);
         return reports.stream()
-                .map(this::toTransactionReportDTO)
+                .map(TransactionReport::toTransactionReportDTO)
                 .collect(Collectors.toList());
     }
     

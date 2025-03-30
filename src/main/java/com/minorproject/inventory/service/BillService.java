@@ -81,7 +81,6 @@ public class BillService {
     
     @Transactional
     public BillDTO createBill(String token, BillDTO billDTO) {
-        //TODO check the quantity of the item, the quantity is becoming negative
         User user = firebaseAuthUtil.getUserFromToken(token);
         
         // Fetch party
@@ -108,6 +107,10 @@ public class BillService {
                 Inventory inventory = inventoryRepository.findByIdAndUser(UUID.fromString(itemDTO.getInventoryId()), user)
                         .orElseThrow(() -> new ResourceNotFoundException("Inventory item not found with id: " + itemDTO.getInventoryId()));
                 
+                if (bill.getIsInvoice() && inventory.getQuantity().compareTo(itemDTO.getQuantity()) < 0) {
+                    throw new IllegalStateException("Not enough stock available for item: " + inventory.getName());
+                }
+                
                 // Create bill item
                 BillItem billItem = BillItem.builder()
                         .inventory(inventory)
@@ -129,7 +132,7 @@ public class BillService {
                 }
                 inventoryRepository.save(inventory);
                 
-                // Update stock summary
+                // Update stock summary - pass correct parameters for purchase/sale
                 updateStockSummary(user, inventory, itemDTO.getQuantity(), bill.getIsInvoice());
             }
         }
@@ -183,6 +186,7 @@ public class BillService {
     }
     
     private void updateStockSummary(User user, Inventory inventory, BigDecimal quantity, boolean isSale) {
+        // Fetch existing stock summary or create a new one if it doesn't exist
         StockSummary stockSummary = stockSummaryRepository.findByUserAndInventory(user, inventory)
                 .orElse(StockSummary.builder()
                         .inventory(inventory)
@@ -194,16 +198,18 @@ public class BillService {
                         .build());
         
         if (isSale) {
-            // Sale - increase sold quantity
+            // For a sale invoice, increase the sold quantity
             stockSummary.setSold(stockSummary.getSold().add(quantity));
         } else {
-            // Purchase - increase purchased quantity
+            // For a purchase invoice, increase the purchased quantity
             stockSummary.setPurchased(stockSummary.getPurchased().add(quantity));
         }
         
+        // Always update the left stock to match the current inventory quantity
         stockSummary.setLeftStock(inventory.getQuantity());
         stockSummary.setLastUpdated(LocalDate.now());
         
+        // Save the updated stock summary
         stockSummaryRepository.save(stockSummary);
     }
     

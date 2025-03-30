@@ -55,7 +55,7 @@ public class MoneyReport {
                 .partyName(party != null ? party.getName() : null)
                 .amount(amount)
                 .isMoneyIn(isMoneyIn)
-                .mode(mode.toString())
+                .mode(mode != null ? mode.toString() : null)
                 .billId(bill != null ? bill.getId().toString() : null)
                 .build();
     }

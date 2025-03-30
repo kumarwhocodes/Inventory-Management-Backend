@@ -6,9 +6,11 @@ import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.minorproject.inventory.dto.AccessTokenBody;
 import com.minorproject.inventory.dto.UserDTO;
+import com.minorproject.inventory.entity.BankDetails;
 import com.minorproject.inventory.entity.User;
 import com.minorproject.inventory.exception.FirebaseOperationException;
 import com.minorproject.inventory.exception.InvalidToken;
+import com.minorproject.inventory.repository.BankDetailsRepository;
 import com.minorproject.inventory.repository.UserRepository;
 import com.minorproject.inventory.utils.FirebaseAuthUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class UserService {
     
     private final UserRepository repo;
+    private final BankDetailsRepository bankRepo;
     private final FirebaseAuthUtil firebaseAuthUtil;
     
     public UserDTO authUser(AccessTokenBody tokenBody) {
@@ -51,7 +54,7 @@ public class UserService {
     
     public UserDTO updateUser(String token, UserDTO userDTO) {
         User existingUser = firebaseAuthUtil.getUserFromToken(token);
-       
+        
         existingUser.setContactName(userDTO.getContactName());
         existingUser.setBusinessName(userDTO.getBusinessName());
         existingUser.setContactNumber(userDTO.getContactNumber());
@@ -88,8 +91,18 @@ public class UserService {
                 .contactNumber(firebaseUser.getPhoneNumber())
                 .email(firebaseUser.getEmail())
                 .build();
-        
         repo.save(user);
+        
+        BankDetails bankDetails = BankDetails.builder()
+                .accountNumber("")
+                .upiId("")
+                .bankName("")
+                .holderName("")
+                .ifscCode("")
+                .user(user)
+                .build();
+        bankRepo.save(bankDetails);
+        
         return user.toUserDTO();
     }
 }

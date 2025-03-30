@@ -12,5 +12,6 @@ import java.util.UUID;
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, UUID> {
     List<Inventory> findByUser(User user);
+    
     Optional<Inventory> findByIdAndUser(UUID id, User user);
 }
