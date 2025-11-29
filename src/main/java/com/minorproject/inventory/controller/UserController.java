@@ -1,6 +1,7 @@
 package com.minorproject.inventory.controller;
 
 import com.minorproject.inventory.dto.AccessTokenBody;
+import com.minorproject.inventory.dto.BankDetailsDTO;
 import com.minorproject.inventory.dto.CustomResponse;
 import com.minorproject.inventory.dto.UserDTO;
 import com.minorproject.inventory.service.UserService;

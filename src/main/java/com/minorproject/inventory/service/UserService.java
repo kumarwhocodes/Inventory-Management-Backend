@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@Log4j2
 @RequiredArgsConstructor
 public class UserService {
     
@@ -42,7 +41,6 @@ public class UserService {
                 return createUser(firebaseUser);
             }
         } catch (FirebaseAuthException e) {
-            log.error("Error fetching Firebase user: {}", e.getMessage());
             throw new InvalidToken();
         }
     }
