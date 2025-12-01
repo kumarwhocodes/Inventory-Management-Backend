@@ -19,7 +19,6 @@ public class BankDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(unique = true, nullable = false)
     private String accountNumber;
     private String ifscCode;
     private String holderName;

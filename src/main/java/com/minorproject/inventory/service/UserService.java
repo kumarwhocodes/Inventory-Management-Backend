@@ -89,7 +89,7 @@ public class UserService {
                 .contactNumber(firebaseUser.getPhoneNumber())
                 .email(firebaseUser.getEmail())
                 .build();
-        repo.save(user);
+        User savedUser = repo.save(user);
         
         BankDetails bankDetails = BankDetails.builder()
                 .accountNumber("")
@@ -97,10 +97,10 @@ public class UserService {
                 .bankName("")
                 .holderName("")
                 .ifscCode("")
-                .user(user)
+                .user(savedUser)
                 .build();
         bankRepo.save(bankDetails);
         
-        return user.toUserDTO();
+        return savedUser.toUserDTO();
     }
 }
